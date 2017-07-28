@@ -1,0 +1,36 @@
+{
+  "name": "koa-i18n-s",
+  "version": "1.0.0",
+  "description": "koa-i18n-s",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require should --reporter spec --timeout 5000 test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccqgithub/koa-i18n-s.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccqgithub/koa-i18n-s/issues"
+  },
+  "homepage": "https://github.com/ccqgithub/koa-i18n-s#readme",
+  "dependencies": {
+    "debug": "*",
+    "i18n-s": "^1.0.1"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "koa": "^2.2.0",
+    "koa-compose": "^3.2.1",
+    "koa-convert": "^1.2.0",
+    "koa-locale": "^1.3.0",
+    "koa-swig": "^2.2.1",
+    "koa-views": "^6.0.1",
+    "mocha": "^3.2.0",
+    "pug": "^2.0.0-beta11",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
+  }
+}
