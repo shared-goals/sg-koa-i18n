@@ -99,7 +99,7 @@ module.exports = function ial(app, opts) {
       const i18n = new I18n(options.defaultLocale, {}, options);
 
       this._i18n = i18n;
-      this.__ = i18n.__;
+      this.__ = i18n.__.bind(i18n);
 
       debug('app.ctx.i18n %j', i18n);
 
