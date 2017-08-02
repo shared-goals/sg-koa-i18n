@@ -76,6 +76,10 @@ module.exports = function ial(app, opts) {
     // whether get locale data from memory cache
     // so do not need to read file every request
     memoryCache: true,
+
+    // clear the locale in path, so can match router later
+    // /zh-CN/xxx => /xxx
+    rewrite: true,
   }, opts);
 
   const whitelist = [];
@@ -156,6 +160,20 @@ module.exports = function ial(app, opts) {
     ctx.state.localeMap = localeMap;
     ctx.state.locale = locale;
     ctx.i18n.setLocale(locale);
+
+    // rewrite
+    if (options.rewrite) {
+      let orig = ctx.path;
+      let re = new RegExp(`^\\/${ctx.state.locale}(\\/|$)`);
+      let m = re.exec(orig);
+
+      if (m) {
+        ctx.path = orig.replace(re, '/');
+        return next().then(() => {
+          ctx.path = orig;
+        });
+      }
+    }
 
     return next();
   }

@@ -81,6 +81,10 @@ app.use(async (ctx, next) => {
   // whether get locale data from memory cache
   // so do not need to read file every request
   memoryCache: true,
+
+  // clear the locale in path, so can match router later
+  // /zh-CN/xxx => /xxx
+  rewrite: true,
 }
 ```
 
