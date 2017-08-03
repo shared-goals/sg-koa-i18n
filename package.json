@@ -1,6 +1,6 @@
 {
   "name": "koa-i18n-s",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "koa-i18n-s",
   "main": "index.js",
   "scripts": {

@@ -94,6 +94,13 @@ ctx.state.locale = {
 }
 ```
 
+## Locale lookup priority
+
+1. modes
+2. locales
+3. mappings
+4. defaultLocale
+
 ## translate
 
 - look at [i18n-s](https://github.com/ccqgithub/i18n-s)

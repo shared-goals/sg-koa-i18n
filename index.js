@@ -114,11 +114,13 @@ module.exports = function ial(app, opts) {
   // i18n middleware
   return function i18nMiddleware(ctx, next) {
     let use = 'Default';
-    let whiteMap = {};
-    let locale;
     let localeDetected = null;
+    let map = {};
+    let locales = options.locales;
+    let mappingKeys = Object.keys(options.mappings);
+    let locale = options.defaultLocale;
 
-    // whiteMap
+    // detect
     whitelist.forEach(key => {
       let checked;
 
@@ -128,38 +130,27 @@ module.exports = function ial(app, opts) {
         checked = ctx.request[GET_PREFIX + key]();
       }
 
-      if (options.locales.indexOf(checked) != -1) {
-        whiteMap[key] = checked;
-      }
-
-      // detected locale
-      if (!localeDetected && whiteMap[key]) {
-        localeDetected = whiteMap[key];
-      }
-    });
-
-    // detect locale from modes
-    options.locales.forEach(lc => {
-      Object.keys(whiteMap).some(key => {
-        let val = whiteMap[key];
-        // Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
-        if (Array.isArray(val)) {
-          if (val.indexOf(lc) !== -1) locale = lc;
-        } else {
-          if (lc === val) locale = lc;
+      if (
+        locales.indexOf(checked) != -1 ||
+        mappingKeys.indexOf(checked) != -1
+      ) {
+        map[key] = checked;
+        // detected locale
+        if (!localeDetected) {
+          localeDetected = checked;
+          use = key;
         }
-
-        // the mode current used
-        if (locale) use = key;
-
-        return !!locale;
-      });
+      }
     });
 
-    // locale
-    locale = locale ||
-      options.mappings[String(localeDetected)] ||
-      options.defaultLocale;
+    // not default
+    if (localeDetected) {
+      if (locales.indexOf(localeDetected) !== -1) {
+        locale = localeDetected;
+      } else {
+        locale = options.mappings[localeDetected];
+      }
+    }
 
     // ctx.state.locale
     ctx.state.locale = {
@@ -168,7 +159,7 @@ module.exports = function ial(app, opts) {
       // the locale detected with modes, no mappings, no default,
       detected: localeDetected,
       // the detected locale of modes
-      map: whiteMap,
+      map: map,
       // the mode that locale detected from
       use: use,
     }
