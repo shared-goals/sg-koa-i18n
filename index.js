@@ -113,15 +113,10 @@ module.exports = function ial(app, opts) {
 
   // i18n middleware
   return function i18nMiddleware(ctx, next) {
-    let localeMap = {};
+    let use = 'Default';
     let whiteMap = {};
     let locale;
-    let localeDetected;
-
-    // localeMap
-    LOCALE_METHODS.forEach(key => {
-      localeMap[key] = ctx.request[GET_PREFIX + key]();
-    });
+    let localeDetected = null;
 
     // whiteMap
     whitelist.forEach(key => {
@@ -146,6 +141,10 @@ module.exports = function ial(app, opts) {
         } else {
           if (lc === val) locale = lc;
         }
+
+        // the mode current used
+        if (locale) use = key;
+
         return !!locale;
       });
     });
@@ -155,24 +154,29 @@ module.exports = function ial(app, opts) {
       options.mappings[String(localeDetected)] ||
       options.defaultLocale;
 
-    // ctx.state
-    ctx.state.localeDetected = localeDetected;
-    ctx.state.localeMap = localeMap;
-    ctx.state.locale = locale;
+    // ctx.state.locale
+    ctx.state.locale = {
+      // the finnal used locale
+      locale: locale,
+      // the locale detected with modes, no mappings, no default,
+      detected: localeDetected,
+      // the detected locale of modes
+      map: whiteMap,
+      // the mode that locale detected from
+      use: use,
+    }
+
+    // apply locale
     ctx.i18n.setLocale(locale);
 
     // rewrite
-    if (options.rewrite) {
+    if (options.rewrite && ctx.state.locale.use == 'Url') {
       let orig = ctx.path;
-      let re = new RegExp(`^\\/${ctx.state.locale}(\\/|$)`);
-      let m = re.exec(orig);
+      ctx.path = orig.substr(locale.length + 1) || '/';
 
-      if (m) {
-        ctx.path = orig.replace(re, '/');
-        return next().then(() => {
-          ctx.path = orig;
-        });
-      }
+      return next().then(() => {
+        ctx.path = orig;
+      });
     }
 
     return next();

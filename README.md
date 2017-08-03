@@ -38,17 +38,27 @@ app.use(async (ctx, next) => {
   let msg = i18n.__('msg');
   let msg2 = ctx.__('msg2');
 
-  // vars in state
-  // this detected locale of your option,
-  // not use mappings and not defaultLocale, so can be empty
-  let localeDetected = ctx.state.localeDetected;
-  // all locales map
-  let localeMap = ctx.state.localeMap;
-  // the using locale
-  let locale = ctx.state.locale;
+  // ctx.state.locale: object
+  console.log(ctx.state.locale)
 
   ctx.body = ctx.i18n.__('locales.en')
 });
+```
+
+## ctx.state.locale
+
+``` js
+// ctx.state.locale
+ctx.state.locale = {
+  // the finnal used locale
+  locale: locale,
+  // the locale detected with modes, no mappings, no default,
+  detected: localeDetected,
+  // the detected locale of modes
+  map: whiteMap,
+  // the mode that locale detected from
+  use: use,
+}
 ```
 
 ## options
@@ -70,17 +80,13 @@ app.use(async (ctx, next) => {
 
   // the mode to get locale from,
   // search by order, use the first matched one
-  // example: ['subdomain', 'cookie', 'header', 'query', 'url', 'tld']
+  // example: ['Subdomain', 'Cookie', 'Header', 'Query', 'Url', 'TLD']
   // https://github.com/koa-modules/locale
-  modes: [],
+  modes: ['Url'],
 
   // mappings other locales that not in locales to one of the locales
   // example: {'zh-HK': 'zh-CN'}
   mappings: {},
-
-  // whether get locale data from memory cache
-  // so do not need to read file every request
-  memoryCache: true,
 
   // clear the locale in path, so can match router later
   // /zh-CN/xxx => /xxx
