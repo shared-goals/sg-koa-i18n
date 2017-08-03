@@ -120,11 +120,18 @@ module.exports = function ial(app, opts) {
 
     // whiteMap
     whitelist.forEach(key => {
+      let checked;
+
       if (typeof key === 'function') {
-        whiteMap[key] = key(ctx);
+        checked = key(ctx);
       } else {
-        whiteMap[key] = ctx.request[GET_PREFIX + key]();
+        checked = ctx.request[GET_PREFIX + key]();
       }
+
+      if (options.locales.indexOf(checked) != -1) {
+        whiteMap[key] = checked;
+      }
+
       // detected locale
       if (!localeDetected && whiteMap[key]) {
         localeDetected = whiteMap[key];
