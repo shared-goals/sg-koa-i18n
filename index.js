@@ -30,7 +30,7 @@ class I18n extends I18nS {
   }
 
   readLocaleData(lc) {
-    let locale = lc || this.getLocale();
+    let locale = lc;
     let opts = this.opts;
     let data = {};
     let fileName = locale + opts.extension;
@@ -51,10 +51,10 @@ module.exports = function ial(app, opts) {
 
   const options = Object.assign({
     // support locales
-    locales: ['zh-CN'],
+    locales: ['zh_CN'],
 
     // default locale, must in locales
-    defaultLocale: 'zh-CN',
+    defaultLocale: 'zh_CN',
 
     // the i18n data directory, absolute path
     directory: '',

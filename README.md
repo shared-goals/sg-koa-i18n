@@ -21,12 +21,18 @@ locale(app, 'language');
 // add i18n middleware
 app.use(i18n(app, {
   directory: __dirname + '/fixtures/locales',
-  locales: ['zh-CN', 'en', 'zh-TW'],
-  defaultLocale: 'zh-CN',
+  locales: ['zh_CN', 'en', 'zh_TW'],
+  defaultLocale: 'zh_CN',
   mappings: {
-    'zh-HK': 'zh-TW'
+    'zh_HK': 'zh_TW'
   },
-  modes: ['subdomain', 'url']
+  modes: [
+    'header', 
+    'url',
+    (ctx) => {
+      return ctx.headers['locale'];
+    }
+  ]
 }));
 
 // the, u can ust the i18n
@@ -66,10 +72,10 @@ ctx.state.locale = {
 ```js
 {
   // support locales
-  locales: ['zh-CN'],
+  locales: ['zh_CN'],
 
   // default locale, must in locales
-  defaultLocale: 'zh-CN',
+  defaultLocale: 'zh_CN',
 
   // the i18n data directory, absolute path
   directory: '',
@@ -82,7 +88,7 @@ ctx.state.locale = {
   // search by order, use the first matched one
   // example: ['Subdomain', 'Cookie', 'Header', 'Query', 'Url', 'TLD']
   // https://github.com/koa-modules/locale
-  modes: ['Url'],
+  modes: ['url'],
 
   // mappings other locales that not in locales to one of the locales
   // example: {'zh-HK': 'zh-CN'}
