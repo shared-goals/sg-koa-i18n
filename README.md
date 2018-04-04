@@ -21,10 +21,10 @@ locale(app, 'language');
 // add i18n middleware
 app.use(i18n(app, {
   directory: __dirname + '/fixtures/locales',
-  locales: ['zh_CN', 'en', 'zh_TW'],
-  defaultLocale: 'zh_CN',
+  locales: ['zh-CN', 'en', 'zh-TW'],
+  defaultLocale: 'zh-CN',
   mappings: {
-    'zh_HK': 'zh_TW'
+    'zh-HK': 'zh-TW'
   },
   modes: [
     'header', 
@@ -72,10 +72,10 @@ ctx.state.locale = {
 ```js
 {
   // support locales
-  locales: ['zh_CN'],
+  locales: ['zh-CN'],
 
   // default locale, must in locales
-  defaultLocale: 'zh_CN',
+  defaultLocale: 'zh-CN',
 
   // the i18n data directory, absolute path
   directory: '',

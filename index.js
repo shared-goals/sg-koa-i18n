@@ -51,10 +51,10 @@ module.exports = function ial(app, opts) {
 
   const options = Object.assign({
     // support locales
-    locales: ['zh_CN'],
+    locales: ['zh-CN'],
 
     // default locale, must in locales
-    defaultLocale: 'zh_CN',
+    defaultLocale: 'zh-CN',
 
     // the i18n data directory, absolute path
     directory: '',
