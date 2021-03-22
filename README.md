@@ -1,11 +1,11 @@
-# koa-i18n-s
+# sg-koa-i18n
 
-> i18n middleware for koa@2.x, use with [i18n-s](https://github.com/ccqgithub/i18n-s), you need to use together with [koa-locale](https://github.com/koa-modules/locale).
+> i18n middleware for koa@2.x, use with [sg-i18n](https://github.com/shared-goals/sg-i18n), you need to use together with [koa-locale](https://github.com/koa-modules/locale).
 
 ## Installation
 
 ```
-npm i koa-i18n-s -S
+npm i sg-koa-i18n -S
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm i koa-i18n-s -S
 ```js
 var app = require('koa')();
 var locale = require('koa-locale');
-var i18n = require('koa-i18n-s');
+var i18n = require('sg-koa-i18n');
 
 // the locale key name defaults to `locale`
 locale(app, 'language');
@@ -109,4 +109,4 @@ ctx.state.locale = {
 
 ## translate
 
-- look at [i18n-s](https://github.com/ccqgithub/i18n-s)
+- look at [sg-i18n](https://github.com/shared-goals/sg-i18n)
