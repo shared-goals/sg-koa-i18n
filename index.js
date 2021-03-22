@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('koa:i18n-s');
-const I18nS = require('i18n-s');
+const I18nS = require('sg-i18n');
 
 const LOCALE_METHODS = [
   'Subdomain',
