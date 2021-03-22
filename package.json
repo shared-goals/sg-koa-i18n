@@ -1,24 +1,24 @@
 {
-  "name": "koa-i18n-s",
-  "version": "1.0.8",
-  "description": "koa-i18n-s",
+  "name": "sg-koa-i18n",
+  "version": "1.1.0",
+  "description": "Fork of https://github.com/shared-goals/sg-koa-i18n.git",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require should --reporter spec --timeout 5000 test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ccqgithub/koa-i18n-s.git"
+    "url": "git+https://github.com/shared-goals/sg-koa-i18n.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ccqgithub/koa-i18n-s/issues"
+    "url": "https://github.com/shared-goals/sg-koa-i18n/issues"
   },
-  "homepage": "https://github.com/ccqgithub/koa-i18n-s#readme",
+  "homepage": "https://github.com/shared-goals/sg-koa-i18n#readme",
   "dependencies": {
     "debug": "*",
-    "i18n-s": "^1.0.4"
+    "sg-i18n": "^1.1.1"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
